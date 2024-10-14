@@ -4,20 +4,32 @@ import Login from '../pages/auth/Login'
 import HomePage from '../pages/user/HomePage'
 import Register from '../pages/auth/Register'
 import PageNotFound from '../pages/PageNotFound'
+import Home from '../pages/Home'
+import AdminLayout from '../layouts/AdminLayout'
+import Manage from '../pages/admin/Manage'
 
 const router = createBrowserRouter([
     {
         path:"/",
         element: <Login/>,
         children:[
-          {index:true,element:<Login/>},
-          {part:"*",element:<PageNotFound/>}
+          {path:"*",element:<PageNotFound/>}
         ]
 
     },
-    {path:"/home", element:<HomePage/>},
-    {path:"/register" , element:<Register/>},
-    {path:"/login" , element:<Login/>},
+    {path:"/user",
+      element:<HomePage/>
+    },
+
+    {path:"/admin",
+      element:<AdminLayout/>,
+
+      children:[
+        {index:true , element:<Home/>},
+        {path:"register" , element:<Register/>},
+        {path:"manage" , element:<Manage/>}
+      ]
+    }
 
 ])
 

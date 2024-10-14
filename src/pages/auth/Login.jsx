@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 const Login = () => {
 
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
 
   const [form,setForm] = useState({
     email:"user1@gmail.com",
@@ -25,8 +25,18 @@ const Login = () => {
   const hdlSubmit = async(e)=>{
     e.preventDefault()
       const role = await actionLogin(form)
-      console.log(token)
-      console.log("Success")
+      if (role) {
+        roleRedirect(role)
+      }
+        roleRedirect(role)
+  }
+
+  const roleRedirect = (role) =>{
+    if (role === "ADMIN") {
+        navigate("/admin")
+    }else{
+        navigate("/user")
+    }
   }
 
 
