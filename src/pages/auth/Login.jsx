@@ -2,13 +2,14 @@ import React,{useState} from "react";
 import useAuthStore from "../../store/auth-store";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import loginBG from '../../pics/login-bg.jpg'
 
 const Login = () => {
 
   const navigate = useNavigate()
 
   const [form,setForm] = useState({
-    email:"user1@gmail.com",
+    email:"admin1@gmail.com",
     password : "123456"
     
   })
@@ -41,14 +42,15 @@ const Login = () => {
 
 
   return (
-    <div className="font-serif">
+    <div  className="font-serif ">
+
       {/* background */}
-      <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-b from-teal-400 to-blue-500">
+      <div  className="flex flex-col items-center justify-center h-screen bg-gradient-to-b from-teal-400 to-blue-500">
         {/*middle frame */}
         <div className="flex flex-col  w-1/3 text-center h-2/3 justify-around ">
           {/* Log in */}
           <div>
-            <h1 className="text-4xl font-bold text-black ">Log in</h1>
+            <h1 className="text-4xl font-bold text-amber-700 ">Log in</h1>
           </div>
           {/* input log in */}
           <form className="flex flex-col gap-2 items-center  " 

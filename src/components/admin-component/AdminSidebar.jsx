@@ -1,6 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { FaChartPie, FaUser } from "react-icons/fa";
+import { HiArchive } from "react-icons/hi";
+import { IoBody } from "react-icons/io5";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { IoSettingsSharp, IoLogOut } from "react-icons/io5";
 import { MdDashboard, MdManageAccounts } from "react-icons/md";
@@ -22,7 +24,7 @@ const AdminSidebar = () => {
   return (
     <div className="bg-gray-200 w-full p-4 h-full  flex flex-col text-black">
       {/* Profile */}
-      <div className="flex flex-col items-center gap-2 py-4">
+      <div className="flex flex-col items-center gap-4 py-4">
         <FaUser fontSize={48} />
         <span className="text-lg ">Profile</span>
       </div>
@@ -33,36 +35,88 @@ const AdminSidebar = () => {
           <span className="text-xl">
             <MdDashboard />
           </span>
-          Dashboard
+          Delivery Status
         </Link>
 
-        <Link className={classLink} to="/admin/manage">
+        <div className="collapse">
+          <input type="checkbox" />
+          <div className="collapse-title text-xl flex items-center gap-1  ">
           <span className="text-xl">
-            <MdManageAccounts />
-          </span>
-          Manage User
-        </Link>
+                <IoBody />
+              </span>
+            User
+          </div>
+          <div className="collapse-content">
+            <Link className={classLink} to="/admin/manage">
+              <span className="text-xl">
+                <MdManageAccounts />
+              </span>
+              Manage User
+            </Link>
+            <Link className={classLink} to={"/admin/register"}>
+              <span className="text-xl">
+                <IoBody />
+              </span>
+              Add User
+            </Link>
+          </div>
+        </div>
 
-
-        <Link className={classLink} to={"#"}>
+        <div className="collapse">
+          <input type="checkbox" />
+          <div className="collapse-title text-xl flex items-center gap-1  ">
           <span className="text-xl">
-            <FaChartPie />
+                <HiArchive />
+              </span>
+              Product
+          </div>
+          <div className="collapse-content">
+        <Link className={classLink} to={"/admin/AllProduct"}>
+          <span className="text-xl">
+            <HiArchive />
           </span>
-          Menu...
+          View Product
         </Link>
+
+        <Link className={classLink} to={"/admin/AddProduct"}>
+          <span className="text-xl">
+            <HiArchive />
+          </span>
+          Add Product
+        </Link>
+
+        <Link className={classLink} to={"/admin/AddModel"}>
+          <span className="text-xl">
+            <HiArchive />
+          </span>
+          Add Model
+        </Link>
+
+          </div>
+        </div>
+
+        
+        
+        
+        
+
+
+        
+        
+
+      {/* endline */}
       </div>
 
-      {/* Bottom Menu */}
-      
-      
-      <Link className={classLink} to={"#"}>
-          <span className="text-xl">
-          <IoIosAddCircleOutline/>
-          </span>
-          New Request
-        </Link>
-      <div>
 
+      {/* Bottom Menu */}
+
+      <Link className={classLink} to={"/admin/newRequest"}>
+        <span className="text-xl">
+          <IoIosAddCircleOutline />
+        </span>
+        New Request
+      </Link>
+      <div>
         <Link className={classLink} to={"#"}>
           <span className="text-xl">
             <IoSettingsSharp />
@@ -71,7 +125,7 @@ const AdminSidebar = () => {
         </Link>
 
         <Link onClick={hdlLogout} className={classLink} to={"#"}>
-          <span  className="text-xl">
+          <span className="text-xl">
             <IoLogOut />
           </span>
           Logout
