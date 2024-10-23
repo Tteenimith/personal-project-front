@@ -11,6 +11,10 @@ import AllProduct from '../pages/admin/AllProduct'
 import RequestForm from '../pages/RequestForm'
 import AddProduct from '../pages/admin/addProduct'
 import AddModel from '../pages/admin/AddModel'
+import UserLayout from '../layouts/UserLayout'
+import TableModel from '../pages/admin/TableModel'
+import UserProduct from '../pages/user/userProduct'
+import HomeAdmin from '../pages/admin/HomeAdmin'
 
 const router = createBrowserRouter([
     {
@@ -22,19 +26,26 @@ const router = createBrowserRouter([
 
     },
     {path:"/user",
-      element:<HomePage/>
+      element:<UserLayout/>,
+
+      children:[
+        {index:true , element:<Home/>},
+        {path:"AllPart" ,element:<UserProduct/>},
+        {path:"newRequest" ,element:<RequestForm/>},
+      ]
+
     },
 
     {path:"/admin",
       element:<AdminLayout/>,
-
+      
       children:[
-        {index:true , element:<Home/>},
+        {index:true , element:<HomeAdmin/>},
         {path:"register" , element:<Register/>},
         {path:"manage" , element:<Manage/>},
         {path:"AllProduct" , element:<AllProduct/>},
-        {path:"newRequest" ,element:<RequestForm/>},
         {path:"AddProduct",element:<AddProduct/>},
+        {path:"getModel",element:<TableModel/>},
         {path:"AddModel",element:<AddModel/>}
       ]
     }

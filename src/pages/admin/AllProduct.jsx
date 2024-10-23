@@ -1,25 +1,40 @@
 import React, { useEffect, useState } from 'react'
-import {getPart,updatePart,deletePart} from '../../api/member'
+import {getPart,updatePart,deletePart,getModel} from '../../api/member'
 import useAuthStore from '../../store/auth-store'
 import {toast} from 'react-toastify'
 
 const AllProduct = () => {
-    const [getAllpart,setGetAllPart] = useState([])
+    const [getAllpart,setGetAllPart] = useState(null)
+    const [models, setModels] = useState(null)
+    
+    
 
     useEffect(()=>{
       getData()
+      getModels()
     },[])
 
     const getData = async()=>{
       try {
           const reps = await getPart()
-          setGetAllPart(reps.data)
-          console.log(reps.data);
+          setGetAllPart(reps.data.parts)
           
       } catch (error) {
         console.log(error)
       }
     }
+
+    const getModels = async()=>{
+      try {
+        const reps = await getModel()
+        setModels(reps.data)
+        console.log(reps.data)
+        
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
 
     const hdlRemove = async (id) => {
       try {
@@ -35,12 +50,12 @@ const AllProduct = () => {
     const hdlUpdate = async (e,id) =>{
       const parts = e.target.value
       const body = {
-        [e.target.name]: e.target.value
+        [e.target.name]: +e.target.value
       }
       try {
           const reps = await updatePart(id,body)
           toast.success(reps.data)
-          getData()
+          getModels()
       } catch (err) {
         console.log(err)
       }
@@ -62,7 +77,7 @@ const AllProduct = () => {
         <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Action</th>
         </tr>
     </thead>
-    {getAllpart.map((name,idx)=>{
+    {getAllpart && getAllpart.map((name,idx)=>{
       return (
     <tbody className="bg-gray-800 divide-y divide-gray-700">
       <tr key={idx}>
@@ -72,16 +87,27 @@ const AllProduct = () => {
         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-whites">{name.sr_number}</td>
         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-whites">
           {/* {name.modelId} */}
-          <select
-            name='model'
+          <select name="modelId"
+            className='block w-full px-3 py-2 border border-gray-800 bg-gray-800 text-gray-300 rounded-md shadow-sm focus:outline-none  sm:text-sm'
             onChange={(e)=>hdlUpdate(e,name.id)}
-            defaultValue={name.modelId}
+            defaultValue={name.model.id}
+          >
+            {models.map((data,idx)=>{
+              return <option key={idx} value={data.id}>{data.name}</option>
+            })}
+
+
+          </select>
+          {/* <select
+            name='modelId'
+            onChange={(e)=>hdlUpdate(e,name.id)}
+            defaultValue={name.model.name}
             className='block w-full px-3 py-2 border border-gray-800 bg-gray-800 text-gray-300 rounded-md shadow-sm focus:outline-none  sm:text-sm'
           >
-            <option>A</option>
-            <option>B</option>
-            <option>C</option>
-          </select>
+            {models && models.map(model => <option value={model.id}>{model.name}</option> )}
+           
+
+          </select> */}
           
           </td>
 

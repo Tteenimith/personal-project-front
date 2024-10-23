@@ -14,7 +14,7 @@ CLOUDINARY_API_SECRET
 
 | method | path            | authen | params | query | body                                                       |
 | :----- | :-------------- | :----: | :----- | :---- | :--------------------------------------------------------- |
-| post   | /api/register   |   -    | -      | -     | { name , email , password, branch,phone , address , role } |
+| post   | /api/register   |   -    | -      | -     | { name , email , password, branch,phone , role } |
 | post   | /api/login      |   -    | -      | -     | { email, password }                                        |
 | post   | /api/current-me |   -    | -      | -     | { token }                                                  |
 

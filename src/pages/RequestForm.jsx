@@ -1,26 +1,63 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
+import {getModel,newRequest} from '../api/member'
+import useAuthStore from "../store/auth-store";
+import { toast } from "react-toastify";
+
+
+
 
 const RequestForm = () => {
   const [formData, setFormData] = useState({
-    itemName: "",
-    quantity: "",
+    serialNumber: "",
+    location: "",
     requestDate: "",
-    department: "",
-    reason: "",
+    delivery: "",
+    
   });
+  console.log(formData)
+
+  const [showModel,setShowModel] = useState(null)
+  const [modelSelect,setModelSelect] = useState(0)
+  const token = useAuthStore((state)=>state.token)
+  console.log(token)
+  useEffect(()=>{
+    getData()
+},[])
+
+const getData = async()=>{
+    try {
+        const  reps = await getModel()
+        setShowModel(reps.data)
+        // console.log(reps.data)
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+const hdlOnclick = (e) =>{
+  setModelSelect(e.target.value)
+  console.log( showModel[e.target.value]?.parts)
+}
+
 
   const handleChange = (e) => {
+    console.log(e.target.name)
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
-    // Handle form submission (e.g., send data to backend)
+    console.log(formData)
+
+    const reps = await newRequest(formData,token)
+    toast.success("Request Done")
+    console.log(reps)
   };
+
+
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
@@ -32,27 +69,43 @@ const RequestForm = () => {
           {/* Item Name */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Item Name
+              Model Type
+            </label>
+            <select onChange={hdlOnclick}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-500" >
+              {showModel && showModel.map((item,idx)=>{
+                return <option value={idx}>{item.name} </option>
+              })}
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+            Serial number
+            </label>
+            <select  
+            name="serialNumber" 
+            onChange={handleChange}
+            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-500"
+            value={formData.serialNumber}
+            defaultValue={""}
+            >
+              
+              <option value={""}   > Select </option>
+              {showModel && showModel[modelSelect].parts.map((item,idx)=>{
+                return <option key={idx} value={item.id}>{item.sr_number} </option>
+              })}
+            </select>
+          </div>
+
+          {/* Location */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Location
             </label>
             <input
               type="text"
-              name="itemName"
-              value={formData.itemName}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-500"
-              required
-            />
-          </div>
-
-          {/* Quantity */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Quantity
-            </label>
-            <input
-              type="number"
-              name="quantity"
-              value={formData.quantity}
+              name="location"
+              value={formData.location}
               onChange={handleChange}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-500"
               required
@@ -74,39 +127,26 @@ const RequestForm = () => {
             />
           </div>
 
-          {/* Department */}
+          {/* Delivery */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Delivery 
             </label>
             <select
-              name="department"
-              value={formData.department}
+              name="delivery"
+              value={formData.Delivery}
               onChange={handleChange}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-500"
               required
             >
               <option value="">Delivery by </option>
-              <option value="HR">CAR</option>
-              <option value="IT">BIKE</option>
-              <option value="Finance">LINE HAUL</option>
+              <option value="CAR">CAR</option>
+              <option value="BIKE">BIKE</option>
+              <option value="LINE HAUL">LINE HAUL</option>
             </select>
           </div>
 
-          {/* Reason */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Reason for Request
-            </label>
-            <textarea
-              name="reason"
-              value={formData.reason}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-500"
-              rows="3"
-              required
-            ></textarea>
-          </div>
+ 
 
           <button
             type="submit"

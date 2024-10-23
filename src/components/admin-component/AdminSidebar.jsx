@@ -6,6 +6,7 @@ import { IoBody } from "react-icons/io5";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { IoSettingsSharp, IoLogOut } from "react-icons/io5";
 import { MdDashboard, MdManageAccounts } from "react-icons/md";
+import { GrCpu } from "react-icons/gr";
 import useAuthStore from "../../store/auth-store";
 import { useNavigate } from "react-router-dom";
 
@@ -85,12 +86,33 @@ const AdminSidebar = () => {
           Add Product
         </Link>
 
-        <Link className={classLink} to={"/admin/AddModel"}>
+
+
+          </div>
+        </div>
+
+        <div className="collapse">
+          <input type="checkbox" />
+          <div className="collapse-title text-xl flex items-center gap-1  ">
+          <span className="text-xl">
+                <GrCpu />
+          </span>
+              Model
+          </div>
+          <div className="collapse-content">
+
+          <Link className={classLink} to={"/admin/getModel"}>
+          <span className="text-xl">
+            <HiArchive />
+          </span>
+          All Model
+          </Link>
+          <Link className={classLink} to={"/admin/AddModel"}>
           <span className="text-xl">
             <HiArchive />
           </span>
           Add Model
-        </Link>
+          </Link>
 
           </div>
         </div>
@@ -110,12 +132,7 @@ const AdminSidebar = () => {
 
       {/* Bottom Menu */}
 
-      <Link className={classLink} to={"/admin/newRequest"}>
-        <span className="text-xl">
-          <IoIosAddCircleOutline />
-        </span>
-        New Request
-      </Link>
+
       <div>
         <Link className={classLink} to={"#"}>
           <span className="text-xl">

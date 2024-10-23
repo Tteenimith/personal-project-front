@@ -1,5 +1,6 @@
 import axios from 'axios';
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
+import {getModel} from '../../api/member'
 
 const FormAddProduct = () => {
     const [formData, setFormData] = useState({
@@ -12,7 +13,24 @@ const FormAddProduct = () => {
 
       const [file,setFile] = useState(null)
     
+      const [showModel,setShowModel] = useState([])
 
+        useEffect(()=>{
+          getData()
+          },[])
+  
+  
+  
+          const getData = async()=>{
+              try {
+                  const show = await getModel()
+                  console.log(show.data)
+                  setShowModel(show.data)
+                  
+              } catch (err) {
+                  console.log(err)
+              }
+          }
 
       const handleChange = (e) => {
         if (e.target.files) {
@@ -103,17 +121,30 @@ const FormAddProduct = () => {
               </div>
               {/* Model type */}
               <div>
+
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                 Model Type
                 </label>
-                <input
+                <select 
+                name="model"
+                onChange={handleChange}
+                className="w-full px-3 py-2 bg-slate-100 text-black border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-500">
+                              
+                <option value="">Pls select model</option>
+                {showModel?.map((data,idx)=>{
+                  return <option value={data.id}>{data.name}</option>
+                })}
+                
+
+                </select>
+                {/* <input
                   type="text"
                   name="model"
                   value={formData.model}
                   onChange={handleChange}
                   className="w-full px-3 py-2 bg-slate-100 text-black border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-500"
                   required
-                />
+                /> */}
               </div>
                 
 
