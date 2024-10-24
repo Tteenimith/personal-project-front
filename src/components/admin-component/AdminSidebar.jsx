@@ -9,6 +9,7 @@ import { MdDashboard, MdManageAccounts } from "react-icons/md";
 import { GrCpu } from "react-icons/gr";
 import useAuthStore from "../../store/auth-store";
 import { useNavigate } from "react-router-dom";
+import {listMember} from '../../api/member'
 
 const classLink =
   "flex items-center hover:bg-gray-500 hover:scale-105 hover:duration-200 active:bg-green-400 rounded-sm px-3 py-2 gap-2";
@@ -22,8 +23,12 @@ const AdminSidebar = () => {
     navigate("/");
   };
 
+
+
+ 
+
   return (
-    <div className="bg-gray-200 w-full p-4 h-full  flex flex-col text-black">
+    <div className="bg-gray-200 w-[20%]  p-4 h-full  flex flex-col text-black fixed">
       {/* Profile */}
       <div className="flex flex-col items-center gap-4 py-4">
         <FaUser fontSize={48} />

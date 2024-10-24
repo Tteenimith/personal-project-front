@@ -15,6 +15,7 @@ const TableMember = () => {
   const getData = async () => {
     try {
       const reps = await listMember();
+      console.log(reps.data)
       setMember(reps.data);
     } catch (err) {
       console.log(err);
@@ -60,6 +61,12 @@ const TableMember = () => {
               scope="col"
               className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
             >
+              Name
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider"
+            >
               Email
             </th>
             <th
@@ -82,6 +89,9 @@ const TableMember = () => {
               <tr key={idx}>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">
                   {name.id}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm  text-white">
+                  {name.name}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                   {name.email}

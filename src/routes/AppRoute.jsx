@@ -15,6 +15,8 @@ import UserLayout from '../layouts/UserLayout'
 import TableModel from '../pages/admin/TableModel'
 import UserProduct from '../pages/user/userProduct'
 import HomeAdmin from '../pages/admin/HomeAdmin'
+import ProtectRoute from './ProtectRoute'
+import Unathorization from '../pages/Unathorization'
 
 const router = createBrowserRouter([
     {
@@ -26,18 +28,20 @@ const router = createBrowserRouter([
 
     },
     {path:"/user",
-      element:<UserLayout/>,
+      element:<ProtectRoute element={<UserLayout/>} allow={["USER","ADMIN"]}/>,
 
       children:[
         {index:true , element:<Home/>},
         {path:"AllPart" ,element:<UserProduct/>},
         {path:"newRequest" ,element:<RequestForm/>},
+        {path:"unauthorization",element:<Unathorization/>},
+        {path:"*",element:<PageNotFound/>}
       ]
 
     },
 
     {path:"/admin",
-      element:<AdminLayout/>,
+      element:<ProtectRoute element={<AdminLayout/>} allow={["ADMIN"]}/>,
       
       children:[
         {index:true , element:<HomeAdmin/>},

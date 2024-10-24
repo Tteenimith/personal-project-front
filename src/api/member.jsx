@@ -21,17 +21,29 @@ export const removeMember = (token,id) =>{
 
 // Part api
 export const createPart = (id,form) =>{
-    return axios.post("http://localhost:8077/api/admin/part/"+ form)
+    return axios.post("http://localhost:8077/api/admin/part/"+ form,{
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        })
 }
 
 export const getPart = () => axios.get("http://localhost:8077/api/admin/part")
 
 
-export const updatePart = (id,form) => {
-    return axios.patch("http://localhost:8077/api/admin/part/"+id,form)
+export const updatePart = (id,form,token) => {
+    return axios.patch("http://localhost:8077/api/admin/part/"+id,form,{
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        })
 }
-export const deletePart = (id,form) => {
-    return axios.delete("http://localhost:8077/api/admin/part/"+id)
+export const deletePart = (id,token) => {
+    return axios.delete("http://localhost:8077/api/admin/part/"+id,{
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        })
 }
 
 // model api 

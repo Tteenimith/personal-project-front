@@ -22,7 +22,7 @@ const Register = () => {
     password: "",
     confirmPassword: "",
     phone: "",
-    branch: "",
+    // branch: "",
   });
 
   const hdlChange = (e) => {
@@ -102,14 +102,14 @@ const Register = () => {
             className="p-2 w-3/4 rounded-lg shadow-md bg-white text-black"
             type="text"
           />
-          <label htmlFor="">Branch</label>
+          {/* <label htmlFor="">Branch</label>
           <input
             name="branch"
             value={form.branch}
             onChange={hdlChange}
             className="p-2 w-3/4 rounded-lg shadow-md bg-white text-black"
             type="text"
-          />
+          /> */}
 
           <button
             type="submit"

@@ -14,7 +14,7 @@ const HomeAdmin = () => {
         try {
             const reps = await showRequest()
             setGetReq(reps.data)
-            // console.log(reps.data)
+            console.log(reps.data)
         } catch (error) {
           console.log(error)
         }
@@ -47,8 +47,8 @@ const HomeAdmin = () => {
     
     
       return (
-    <div className="overflow-x-auto">
-      <table className="table table-zebra">
+    <div className="overflow-x-auto ">
+      <table className="min-w-full divide-y divide-gray-700 bg-gray-800 text-center ">
         {/* head */}
         <thead>
           <tr>

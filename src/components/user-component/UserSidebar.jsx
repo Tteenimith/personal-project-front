@@ -24,7 +24,7 @@ const UserSidebar = () => {
         navigate("/")
     }
     return (
-    <div className="bg-gray-200 w-full p-4 h-full  flex flex-col text-black">
+    <div className="bg-gray-200 w-[20%] p-4 h-full  flex flex-col text-black fixed">
         {/* Profile */}
       <div className="flex flex-col items-center gap-4 py-4">
         <FaUser fontSize={48} />

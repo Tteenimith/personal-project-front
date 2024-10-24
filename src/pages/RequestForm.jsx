@@ -74,7 +74,7 @@ const hdlOnclick = (e) =>{
             <select onChange={hdlOnclick}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-500" >
               {showModel && showModel.map((item,idx)=>{
-                return <option value={idx}>{item.name} </option>
+                return <option key={idx} value={idx}>{item.name} </option>
               })}
             </select>
           </div>

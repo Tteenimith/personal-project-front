@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React,{useState,useEffect} from 'react'
 import {getModel} from '../../api/member'
+import { toast } from 'react-toastify';
+import useAuthStore from '../../store/auth-store'
 
 const FormAddProduct = () => {
     const [formData, setFormData] = useState({
@@ -10,6 +12,8 @@ const FormAddProduct = () => {
         model: ""
         
       });
+
+      const token = useAuthStore((state)=>state.token)
 
       const [file,setFile] = useState(null)
     
@@ -60,12 +64,13 @@ const FormAddProduct = () => {
         payload.append(
             "model",formData.model
         )
-       await axios.post("http://localhost:8077/api/part",payload,{
+       await axios.post("http://localhost:8077/api/admin/part",payload,{
         headers:{
-            "Content-Type" : "application/x-www-form-urlencoded"
+            Authorization: `Bearer ${token}`,
+            "Content-Type" : "application/x-www-form-urlencoded",
         }
        })
-
+        toast.success("Add Success")
         console.log("Form Data:", formData);
       };
     

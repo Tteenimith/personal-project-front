@@ -22,7 +22,7 @@ useEffect(()=>{
 
   return (
 <div className="overflow-x-auto">
-  <table className="table table-zebra">
+  <table className="min-w-full table-fixed divide-y divide-gray-700 bg-gray-800 text-center">
     {/* head */}
     <thead>
       <tr>
